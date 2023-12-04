@@ -1,6 +1,8 @@
 const { WebSocket } = require('ws');
 const http = require('http');
 const fs = require('fs');
+const express = require('express');
+const path = require('path');
 
 // Websocket Server
 let WEBSOCKET_PORT = process.env.WEBSOCKET_PORT || 9092;
@@ -79,3 +81,15 @@ ss.headersTimeout = 0;
 ss.listen(STREAM_PORT); // Keep the socket open for streaming
 
 console.log('Listening for incomming MPEG-TS stream on http://127.0.0.1:' + STREAM_PORT + '/' + STREAM_SECRET);
+
+// Client
+const CLIENT_PORT = process.env.CLIENT_PORT || 9090; // Define the port for the client server
+const app = express();
+
+app.use(express.static(
+    path.join(__dirname, '../public')
+));
+
+app.listen(CLIENT_PORT, () => {
+    console.log(`Static server running on http://127.0.0.1:${CLIENT_PORT}`);
+});
