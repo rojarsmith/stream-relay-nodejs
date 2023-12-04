@@ -20,5 +20,12 @@ wss.on('connection', function (socket, upgradeReq) {
         );
     });
 });
+wss.broadcast = function (data) {
+    wss.clients.forEach(function each(client) {
+        if (client.readyState === WebSocket.OPEN) {
+            client.send(data);
+        }
+    });
+};
 
 console.log('Awaiting WebSocket connections on ws://127.0.0.1:' + WEBSOCKET_PORT + '/');
