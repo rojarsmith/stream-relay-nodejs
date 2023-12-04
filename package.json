@@ -9,7 +9,22 @@
     },
     "author": "Rojar Smith",
     "license": "ISC",
+    "dependencies": {
+        "express": "^4.18.2",
+        "ws": "^8.14.2"
+    },
     "devDependencies": {
         "nodemon": "^3.0.2"
+    },
+    "nodemonConfig": {
+        "exec": "node --env-file=.env.development.local ./src/index.js",
+        "ignore": [
+            "node_modules",
+            "dist"
+        ],
+        "delay": "2500",
+        "watch": [
+            "src/*"
+        ]
     }
 }
