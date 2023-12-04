@@ -3,6 +3,8 @@ const http = require('http');
 const fs = require('fs');
 const express = require('express');
 const path = require('path');
+const { spawn } = require('child_process');
+const ffmpegPath = require('ffmpeg-static');
 
 // Websocket Server
 let WEBSOCKET_PORT = process.env.WEBSOCKET_PORT || 9092;
@@ -93,3 +95,16 @@ app.use(express.static(
 app.listen(CLIENT_PORT, () => {
     console.log(`Static server running on http://127.0.0.1:${CLIENT_PORT}`);
 });
+
+// ffmpeg
+let RTSP_URL = process.env.RTSP_URL || 'rtsp://169.254.113.84:554/user=admin_password=tlJwpbo6_channel=1_stream=0&amp;onvif=0.sdp?real_st';
+
+console.log(ffmpegPath)
+const ffmpeg = spawn(ffmpegPath, [
+    '-i', RTSP_URL,
+    '-q', '0',
+    '-f', 'mpegts',
+    '-codec:v', 'mpeg1video',
+    '-s', '1920x1080',
+    'http://127.0.0.1:9091/',
+]);

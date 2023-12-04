@@ -14,15 +14,6 @@
             WebSocket
         </div>
         <div>
-            <video autoplay muted id="remote-video"></video>
-        </div>
-        <div>
-            <video autoplay muted id="local-video"></video>
-        </div>
-        <!-- <div>
-            <div id="jsmpeg" class="jsmpeg" data-url="ws://localhost:9000"></div>
-        </div> -->
-        <div>
             <canvas id="canvas"></canvas>
         </div>
     </div>
@@ -30,7 +21,7 @@
     <script type="text/javascript">
         player = new JSMpeg.Player('ws://localhost:9092', {
             canvas: document.getElementById('canvas') // Canvas should be a canvas DOM element
-        })	
+        });
     </script>
 </body>
 
